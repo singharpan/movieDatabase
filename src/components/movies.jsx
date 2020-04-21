@@ -6,6 +6,14 @@ class Movies extends Component {
     movies: getMovies(),
   };
   //This is not right way to initialize state property b'coz the API can take time to send the data
+
+  handleDelete = (movie) => {
+    const movies = this.state.movies.filter(
+      (movies) => movie._id !== movies._id
+    );
+    this.setState({ movies });
+  };
+
   render() {
     return (
       <table className="table">
@@ -15,18 +23,23 @@ class Movies extends Component {
             <th>Genre</th>
             <th>Stock</th>
             <th>Rate</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {this.state.movies.map((movie) => (
-            <tr>
+            <tr key={movie._id}>
               <td>{movie.title}</td>
               <td>{movie.genre.name}</td>
               <td>{movie.numberInStock}</td>
               <td>{movie.dailyRentalRate}</td>
               <td>
                 {
-                  <button type="button" className="btn btn-danger">
+                  <button
+                    onClick={() => this.handleDelete(movie)}
+                    type="button"
+                    className="btn btn-danger"
+                  >
                     Delete
                   </button>
                 }
