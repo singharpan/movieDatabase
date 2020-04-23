@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 import { getMovies } from "../services/fakeMovieService";
+import Pagination from "./common/pagination";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
+    pageSize: 4,
   };
   //This is not right way to initialize state property b'coz the API can take time to send the data
 
@@ -22,6 +24,11 @@ class Movies extends Component {
     newmovies[index].liked = !newmovies[index].liked;
     this.setState({ movies: newmovies });
   };
+  //This page will recieve new Page number
+  handlePageChange = (page) => {
+    console.log(page);
+  };
+
   render() {
     //Destructing
     const { length: count } = this.state.movies;
@@ -70,6 +77,11 @@ class Movies extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination
+          itemsCount={count}
+          pageSize={this.state.pageSize}
+          onPageChange={this.handlePageChange}
+        />
       </React.Fragment>
     );
   }
