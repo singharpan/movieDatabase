@@ -5,19 +5,28 @@ import _ from "lodash";
 //will map page number to each item
 //Input:PageCount & pageSize & this page will also raise an event when a page is clicked
 const Pagination = (props) => {
-  const { itemsCount, pageSize } = props;
-  console.log(itemsCount, pageSize);
+  const { itemsCount, pageSize, onPageChange, currentPage } = props;
   //Calculate the number of pages and create a array from page no 1 to pageCount
   //this will be done through Lodash
-  const pagesCount = itemsCount / pageSize;
+  //this will convert the pagecount to smallest integer if it is float
+  //Will then Highlight the Active class by applying dynamic "active" class
+  console.log(itemsCount, pageSize);
+  const pagesCount = Math.ceil(itemsCount / pageSize);
+
+  if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1); //return a array
-  console.log(pages);
+
   return (
     <nav>
       <ul className="pagination">
         {pages.map((page) => (
-          <li key={page} className="page-item">
-            <a className="page-link">{page}</a>
+          <li
+            key={page}
+            className={page === currentPage ? "page-item active" : "page-item"}
+          >
+            <a className="page-link" onClick={() => onPageChange(page)}>
+              {page}
+            </a>
           </li>
         ))}
 
