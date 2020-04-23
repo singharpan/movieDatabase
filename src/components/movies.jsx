@@ -7,6 +7,7 @@ class Movies extends Component {
   state = {
     movies: getMovies(),
     pageSize: 4,
+    currentPage: 1,
   };
   //This is not right way to initialize state property b'coz the API can take time to send the data
 
@@ -26,12 +27,13 @@ class Movies extends Component {
   };
   //This page will recieve new Page number
   handlePageChange = (page) => {
-    console.log(page);
+    this.setState({ currentPage: page });
   };
 
   render() {
     //Destructing
     const { length: count } = this.state.movies;
+    const { pageSize, currentPage } = this.state;
     if (count === 0) return <p>There is no movie in the database.</p>;
 
     return (
@@ -79,7 +81,8 @@ class Movies extends Component {
         </table>
         <Pagination
           itemsCount={count}
-          pageSize={this.state.pageSize}
+          pageSize={pageSize}
+          currentPage={currentPage}
           onPageChange={this.handlePageChange}
         />
       </React.Fragment>
