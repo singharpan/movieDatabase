@@ -21,7 +21,7 @@ class Movies extends Component {
 
     return (
       <React.Fragment>
-        <p>Showing {count} movie in the database</p>
+        <p>Showing {count} movies in the database</p>
         <hr />
         <table className="table">
           <thead>
