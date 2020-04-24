@@ -10,7 +10,7 @@ const Pagination = (props) => {
   //this will be done through Lodash
   //this will convert the pagecount to smallest integer if it is float
   //Will then Highlight the Active class by applying dynamic "active" class
-  console.log(itemsCount, pageSize);
+
   const pagesCount = Math.ceil(itemsCount / pageSize);
 
   if (pagesCount === 1) return null;
