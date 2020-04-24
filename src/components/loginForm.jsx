@@ -7,25 +7,21 @@ class LoginForm extends Component {
       password: "",
     },
   };
-  username = React.createRef();
 
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted");
   };
-
+  //when we work with properties of an object dynmically..we should use [] notation inset of . notation
+  //for that we give a name property to input field and then use it
   handleChange = (e) => {
     const account = { ...this.state.account };
-    account.username = e.currentTarget.value;
-    this.setState({ account });
-  };
-  handleChange2 = (e) => {
-    const account = { ...this.state.account };
-    account.password = e.currentTarget.value;
+    account[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ account });
   };
 
   render() {
+    const { account } = this.state;
     return (
       <React.Fragment>
         <h1>Login Form</h1>
@@ -34,9 +30,9 @@ class LoginForm extends Component {
             <label htmlFor="username">Username</label>
             <input
               id="username"
-              ref={this.username}
               type="text"
-              value={this.state.account.username}
+              name="username"
+              value={account.username}
               onChange={this.handleChange}
               className="form-control"
             />
@@ -46,8 +42,9 @@ class LoginForm extends Component {
             <input
               id="password"
               type="text"
-              value={this.state.account.password}
-              onChange={this.handleChange2}
+              name="password"
+              value={account.password}
+              onChange={this.handleChange}
               className="form-control"
             />
           </div>
