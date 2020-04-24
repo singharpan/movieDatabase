@@ -7,14 +7,31 @@ class LoginForm extends Component {
       username: "",
       password: "",
     },
+    errors: {},
   };
 
+  validate = () => {
+    const errors = {};
+    const { account } = this.state;
+    if (account.username.trim() === "") {
+      errors.username = "Username is Required";
+    }
+    if (account.password.trim() === "") {
+      errors.password = "Password is Required";
+    }
+
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
+
+  //Validation on form submission
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted");
+    const errors = this.validate();
+    console.log(errors);
+    this.setState({ errors });
+    if (errors) return null;
   };
-  //when we work with properties of an object dynmically..we should use [] notation inset of . notation
-  //for that we give a name property to input field and then use it
+
   handleChange = (e) => {
     const account = { ...this.state.account };
     account[e.currentTarget.name] = e.currentTarget.value;
