@@ -1,24 +1,28 @@
 import React, { Component } from "react";
 
 class LoginForm extends Component {
-  //This will create a Ref object
-
+  state = {
+    account: {
+      username: "",
+      password: "",
+    },
+  };
   username = React.createRef();
-  //const user=this.username.current.value//to get value
-  //use refs only when very need
-  componentDidMount() {
-    this.username.current.focus();
-  }
-  //This is the example of refs use
-  //ByDefault HTML forms takes a trip to the server :)
-  //this handlesubmit takes event object as a parameter & the event object have a method "preventDefault"
-  //this prevent the form default behavior which is "submit to server" and "page reload"
-  //will now call the server,save the changes to server and redirect user to next page.
-  //we don't use "document.getElementById("ID").value" to get value of input field..b'coz with that we will directly manipulate DOM,which is incorrect
-  //input field is a DOM element and in order to use it first we create referernce of it(DOM Element)
+
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted");
+  };
+
+  handleChange = (e) => {
+    const account = { ...this.state.account };
+    account.username = e.currentTarget.value;
+    this.setState({ account });
+  };
+  handleChange2 = (e) => {
+    const account = { ...this.state.account };
+    account.password = e.currentTarget.value;
+    this.setState({ account });
   };
 
   render() {
@@ -32,12 +36,20 @@ class LoginForm extends Component {
               id="username"
               ref={this.username}
               type="text"
+              value={this.state.account.username}
+              onChange={this.handleChange}
               className="form-control"
             />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input id="password" type="text" className="form-control" />
+            <input
+              id="password"
+              type="text"
+              value={this.state.account.password}
+              onChange={this.handleChange2}
+              className="form-control"
+            />
           </div>
           <button className="btn btn-primary">Login</button>
         </form>
